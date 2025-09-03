@@ -1,5 +1,10 @@
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { useCourses } from "../../../../hooks/useCourses";
+import { useUser } from "../../user/hooks/useUser";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+
 
 const data = [
   { name: "Tháng 1", revenue: 4000 },
@@ -9,15 +14,20 @@ const data = [
 ]
 
 export default function Dashboard() {
+    const {courses} = useCourses()
+    const {users, fetchUsersByRole} = useUser()
+    useEffect(() => {
+        fetchUsersByRole('user')
+    }, [])
     return (
         <div className="flex min-h-screen bg-gray-100">
             <aside className="w-64 bg-indigo-600 text-white p-6 space-y-6">
                 <h1 className="text-2xl font-bold">Admin</h1>
                 <nav className="space-y-4">
-                    <a href="/dashboard" className="block hover:text-yellow-300">📊 Dashboard</a>
-                    <a href="/courses" className="block hover:text-yellow-300">📚 Quản lý khóa học</a>
-                    <a href="/users" className="block hover:text-yellow-300">👨‍🎓 Người dùng</a>
-                    <a href="/orders" className="block hover:text-yellow-300">🛒 Đơn hàng</a>
+                    <Link to="/admin/dashboard" className="block hover:text-yellow-300">📊 Dashboard</Link>
+                    <Link to="/admin/courses" className="block hover:text-yellow-300">📚 Quản lý khóa học</Link>
+                    <Link to="/admin/users" className="block hover:text-yellow-300">👨‍🎓 Người dùng</Link>
+                    <Link to="/admin/orders" className="block hover:text-yellow-300">🛒 Đơn hàng</Link>
                 </nav>
             </aside>
 
@@ -32,11 +42,11 @@ export default function Dashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
                     <div className="bg-white p-4 rounded shadow text-center">
                         <h3 className="text-gray-500">Khóa học</h3>
-                        <p className="text-2xl font-bold">120</p>
+                        <p className="text-2xl font-bold">{courses.length}</p>
                     </div>
                     <div className="bg-white p-4 rounded shadow text-center">
                         <h3 className="text-gray-500">Học viên</h3>
-                        <p className="text-2xl font-bold">3500</p>
+                        <p className="text-2xl font-bold">{users.length}</p>
                     </div>
                     <div className="bg-white p-4 rounded shadow text-center">
                         <h3 className="text-gray-500">Doanh thu</h3>
@@ -73,27 +83,17 @@ export default function Dashboard() {
                         </tr>
                         </thead>
                         <tbody>
-                        <tr className="border-t">
-                            <td className="p-3">ReactJS từ A-Z</td>
-                            <td className="p-3">Nguyễn Văn A</td>
-                            <td className="p-3 text-center">250</td>
-                            <td className="p-3">1,200,000đ</td>
-                            <td className="p-3 text-green-600 font-semibold">Đang bán</td>
-                        </tr>
-                        <tr className="border-t">
-                            <td className="p-3">Spring Boot nâng cao</td>
-                            <td className="p-3">Trần Thị B</td>
-                            <td className="p-3 text-center">180</td>
-                            <td className="p-3">1,500,000đ</td>
-                            <td className="p-3 text-green-600 font-semibold">Đang bán</td>
-                        </tr>
-                        <tr className="border-t">
-                            <td className="p-3">Python cho Data Science</td>
-                            <td className="p-3">Lê Văn C</td>
-                            <td className="p-3 text-center">320</td>
-                            <td className="p-3">999,000đ</td>
-                            <td className="p-3 text-yellow-600 font-semibold">Sắp mở</td>
-                        </tr>
+                        {courses
+                        .filter(course => course.isPublished)
+                        .map((course) => (
+                            <tr className="border-t">
+                                <td className="p-3">{course.title}</td>
+                                <td className="p-3">{course.instructorName}</td>
+                                <td className="p-3 text-center">3500</td>
+                                <td className="p-3">{course.price.toLocaleString()} đ</td>
+                                <td className="p-3 text-yellow-600 font-semibold">Đã mở</td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>

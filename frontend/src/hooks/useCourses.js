@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { courseApi } from "../../../../apis/course"
+import { courseApi } from "../apis/course"
 
 export const useCourses = () => {
     const [courses, setCourses] = useState([])
@@ -45,6 +45,10 @@ export const useCourses = () => {
             setLoading(false)
         }
     }
+
+    useEffect(() => {
+        console.log("Courses state updated:", courses);
+    }, [courses]);
 
     useEffect(() => {
         fetchCourses()

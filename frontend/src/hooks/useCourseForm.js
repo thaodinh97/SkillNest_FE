@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
-import { courseApi } from "../../../../apis/course"
-import { userApi } from "../../../../apis/user"
+import { courseApi } from "../apis/course"
+import { userApi } from "../apis/user"
 
 export const useCourseForm = (initData = null) => {
     const [formData, setFormData] = useState(initData || {
         title: '',
         description: '',
         instructorId: '',
+        isPublished: false,
         price: 0
     })
     const [loading, setLoading] = useState(false)
@@ -56,13 +57,6 @@ export const useCourseForm = (initData = null) => {
         }
     }
 
-    useEffect(() => {
-        console.log("Instructors state updated:", instructors);
-    }, [instructors]);
-
-    useEffect(() => {
-        fetchInstructors();
-    }, []);
 
     return {
         formData,
@@ -71,6 +65,7 @@ export const useCourseForm = (initData = null) => {
         handleChange,
         handleSubmit,
         setFormData,
+        fetchInstructors,
         instructors
     }
 }

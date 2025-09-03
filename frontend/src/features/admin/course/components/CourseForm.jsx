@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -8,11 +8,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useCourseForm } from "../hooks/useCourseForm";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useCourseForm } from "../../../../hooks/useCourseForm";
 
 export default function CourseForm({formData, handleChange, handleSubmit, course}) {
-    const {instructors} = useCourseForm()
+    const {instructors, fetchInstructors} = useCourseForm()
+    useEffect(() => {
+        console.log("Instructors state updated:", instructors);
+    }, [instructors]);
 
+    useEffect(() => {
+        fetchInstructors();
+    }, []);
+    
     return (
         <form className="space-y-4" onSubmit={(e) => handleSubmit(e, course?.id)}>
             <div>
@@ -59,6 +67,21 @@ export default function CourseForm({formData, handleChange, handleSubmit, course
                         ))}
                     </SelectContent>
                 </Select>
+            </div>
+            <div>
+                <label className="block">Mở bán</label>
+                <RadioGroup defaultValue={formData.isPublished ? "true": "false"}
+                    onValueChange={value => handleChange("isPublished", value === "true")}
+                >
+                    <div className="flex items-center gap-3"> 
+                        <RadioGroupItem value="true" id="r1"/>
+                        <label htmlFor="r1">Mở bán</label>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <RadioGroupItem value="false" id="r2" />
+                        <label htmlFor="r2">Không mở bán</label>
+                    </div>
+                </RadioGroup>
             </div>
             
             <Button type="submit" className="w-full">

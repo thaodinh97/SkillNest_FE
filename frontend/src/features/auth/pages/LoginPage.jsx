@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import authApi from "../../../apis/auth"
+import { getRoleFromToken } from "../../../utils/auth"
 
 export default function LoginPage() {
     const [email, setEmail] = useState("")
@@ -15,7 +16,19 @@ export default function LoginPage() {
             if (res.code === 1000 && res.result?.authenticated) {
                 const token = res.result.token;
                 localStorage.setItem("token", token);
-                window.location.href = "/dashboard";
+                const role = getRoleFromToken(token)
+
+                if(role === "ROLE_admin")
+                {
+                    window.location.href = "/admin/dashboard"
+                }
+                else if(role === "ROLE_instructor")
+                {
+                    window.location.href = "/instructor/courses"
+                }
+                else {
+                    window.location.href = "/courses"
+                }
             } else {
                 alert("Sai email hoặc mật khẩu!");
             }
