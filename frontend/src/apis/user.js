@@ -11,6 +11,13 @@ export const userApi = {
         return res
     },
 
+    getMyInfo: async () => {
+        const res = await axiosClient.get("/user/my-info")
+        console.log(res );
+        
+        return res
+    },
+
     getAllUsers: async () => {
         const res = await axiosClient.get("/user/")
         return res

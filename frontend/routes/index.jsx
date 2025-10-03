@@ -6,6 +6,7 @@ import AdminCoursePage from "../src/features/admin/course/pages/CoursePage";
 import AdminUserPage from "../src/features/admin/user/pages/UserPage";
 import ProtectedRoute from "../src/components/ProtectedRoute";
 import CoursePage from "../src/features/user/course/CourePage";
+import ProfilePage from "../src/features/user/profile/ProfilePage";
 export default function AppRoutes() {
   return (
     <BrowserRouter>
@@ -41,6 +42,12 @@ export default function AppRoutes() {
                       <CoursePage/>
                     </ProtectedRoute>
             }/>
+            <Route path="/profile"
+                  element={
+                    <ProtectedRoute allowedRole="ROLE_user">
+                      <ProfilePage/>
+                    </ProtectedRoute>
+                  }/>
         </Routes>
     </BrowserRouter>
   );

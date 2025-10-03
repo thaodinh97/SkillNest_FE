@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { userApi } from "../../../../apis/user"
+import { userApi } from "../apis/user"
 
 export const useUser = () => {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
+    const [user, setUser] = useState(null)
 
     const fetchUsers = async () => {
         try {
@@ -29,6 +30,24 @@ export const useUser = () => {
         } catch (err) {
             setError(err.response?.data?.message || 'Lỗi khi tải danh sách khóa học')
         }
+        finally {
+            setLoading(false)
+        }
+    }
+
+    const getMyInfo = async () => {
+        try {
+            setLoading(true)
+            const res = await userApi.getMyInfo()
+            console.log(res.result);
+            
+            setUser(res.result)
+            setError(null)
+            return res
+        }
+        catch (err) {
+            setError(err.response?.data?.message || 'Lỗi khi tải thông tin người dùng')
+        }   
         finally {
             setLoading(false)
         }
@@ -75,11 +94,13 @@ export const useUser = () => {
 
     return {
         users,
+        user,
         loading,
         error,
         fetchUsersByRole,
         editUser,
         deleteUser,
-        addUser
+        addUser,
+        getMyInfo
     }
 } 

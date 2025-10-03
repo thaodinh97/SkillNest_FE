@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import UserTable from "../components/UserTable"
-import { useUser } from "../hooks/useUser"
+import { useUser } from "../../../../hooks/useUser"
 import {
   Select,
   SelectContent,

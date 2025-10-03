@@ -27,7 +27,7 @@ export default function LoginPage() {
                     window.location.href = "/instructor/courses"
                 }
                 else {
-                    window.location.href = "/courses"
+                    window.location.href = "/profile"
                 }
             } else {
                 alert("Sai email hoặc mật khẩu!");
