@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-frontend-deployment
+  namespace: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: react-frontend
+  template:
+    metadata:
+      labels:
+        app: react-frontend
+    spec:
+      containers:
+        - name: react-frontend
+          image: asia-northeast2-docker.pkg.dev/geometric-hull-473810-v0/skill-nest-app/skill-nest-frontend:v1
+          ports:
+            - containerPort: 80
+
