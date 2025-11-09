@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: react-frontend-service
+  name: skill-nest-frontend-service
+  namespace: skill-nest
 spec:
   selector:
-    app: react-frontend
+    app: skill-nest-frontend
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: LoadBalancer
+  type: ClusterIP

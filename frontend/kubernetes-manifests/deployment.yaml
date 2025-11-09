@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: react-frontend-deployment
-  namespace: frontend
+  name: skill-nest-frontend-deployment
+  namespace: skill-nest
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: react-frontend
+      app: skill-nest-frontend
   template:
     metadata:
       labels:
-        app: react-frontend
+        app: skill-nest-frontend
     spec:
       containers:
-        - name: react-frontend
-          image: asia-northeast2-docker.pkg.dev/geometric-hull-473810-v0/skill-nest-app/skill-nest-frontend:v1
+        - name: skill-nest-frontend
+          image: asia-east1-docker.pkg.dev/geometric-hull-473810-v0/skill-nest/skillnest-frontend:latest
           ports:
             - containerPort: 80
 

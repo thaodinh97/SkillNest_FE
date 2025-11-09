@@ -15,6 +15,12 @@ export const userApi = {
         const res = await axiosClient.get("/user/")
         return res
     },
+
+    getInfo: async () => {
+        const res = await axiosClient.get("/user/my-info")
+        return res
+    },
+
     updateUser: async (id, data) => {
         const res = await axiosClient.put(`/user/${id}`, data)
         return res
