@@ -1,6 +1,6 @@
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { useCourses } from "../../../../hooks/useCourses";
+import { useCourses } from "../../../../hooks/course/useCourses.js";
 import { useUser } from "../../user/hooks/useUser";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";

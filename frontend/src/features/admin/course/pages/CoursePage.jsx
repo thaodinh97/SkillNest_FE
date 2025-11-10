@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useCourses } from "../../../../hooks/useCourses";
+import { useCourses } from "../../../../hooks/course/useCourses.js";
 import CourseTable from "../components/CourseTable";
-import { useCourseForm } from "../../../../hooks/useCourseForm";
+import { useCourseForm } from "../../../../hooks/course/useCourseForm.js";
 import { Button } from "@/components/ui/button"
 import {
   Dialog,

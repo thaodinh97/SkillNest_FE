@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { courseApi } from "../apis/course"
-import { userApi } from "../apis/user"
+import { courseApi } from "../../apis/course.js"
+import { userApi } from "../../apis/user.js"
 
 export const useCourseForm = (initData = null) => {
     const [formData, setFormData] = useState(initData || {

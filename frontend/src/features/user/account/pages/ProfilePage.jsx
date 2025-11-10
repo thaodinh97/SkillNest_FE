@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useAccountProfile} from "@/features/user/account/hooks/useAccountProfile.js";
+import {useUpdateProfile} from "@/features/user/account/hooks/useUpdateProfile.js";
 
 const ProfilePage = () => {
     const { data: profileData, loading, error } = useAccountProfile();
@@ -11,7 +12,11 @@ const ProfilePage = () => {
         phoneNumber: '',
     })
     const [userId, setUserId] = useState(null)
-    const [updating, setUpdating] = useState(false)
+    const {
+        updateUser,
+        isUpdating,
+        error: updateError
+    } = useUpdateProfile()
 
     useEffect(() => {
         if (profileData) {
@@ -27,6 +32,19 @@ const ProfilePage = () => {
         }
     }, [profileData])
 
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        const response = await updateUser(userId, formData)
+    }
     if (loading) {
         return <div>Đang tải thông tin hồ sơ...</div>;
     }
@@ -46,7 +64,7 @@ const ProfilePage = () => {
             </p>
 
             {/*Form*/}
-            <form className="mt-6 max-w-lg">
+            <form onSubmit={handleSubmit} className="mt-6 max-w-lg">
                 <div className="mb-5">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                         Ảnh đại diện
@@ -90,6 +108,7 @@ const ProfilePage = () => {
                         id="fullName"
                         name="fullName"
                         value={formData.fullName}
+                        onChange={handleChange}
                         required
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-base
                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -130,6 +149,7 @@ const ProfilePage = () => {
                         id="dob"
                         name="dob"
                         value={formData.dob}
+                        onChange={handleChange}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-base
                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
@@ -147,6 +167,7 @@ const ProfilePage = () => {
                         id="phoneNumber"
                         name="phoneNumber"
                         value={formData.phoneNumber}
+                        onChange={handleChange}
                         placeholder="Chưa cập nhật"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-base
                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -156,14 +177,19 @@ const ProfilePage = () => {
                 <div>
                     <button
                         type="submit"
-                        disabled={updating}
+                        disabled={isUpdating}
                         className="px-5 py-2.5 bg-blue-600 text-white rounded-md text-sm font-semibold cursor-pointer
                        transition-colors duration-200 hover:bg-blue-700
                        disabled:bg-gray-400 disabled:cursor-not-allowed"
                     >
-                        {updating ? 'Đang lưu...' : 'Lưu thay đổi'}
+                        {isUpdating ? 'Đang lưu...' : 'Lưu thay đổi'}
                     </button>
                 </div>
+                {updateError && (
+                    <div className="mt-4 text-sm text-red-600">
+                        Lỗi cập nhật: {updateError}
+                    </div>
+                )}
             </form>
         </div>
     )

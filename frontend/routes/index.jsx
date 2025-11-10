@@ -5,9 +5,10 @@ import Dashboard from "../src/features/admin/dashboard/pages/DashboardPage";
 import AdminCoursePage from "../src/features/admin/course/pages/CoursePage";
 import AdminUserPage from "../src/features/admin/user/pages/UserPage";
 import ProtectedRoute from "../src/components/ProtectedRoute";
-import CoursePage from "../src/features/user/course/CourePage";
+import CoursePage from "@/features/user/course/pages/CourePage.jsx";
 import AccountLayout from "@/features/user/account/pages/AccountLayout.jsx";
 import ProfilePage from "@/features/user/account/pages/ProfilePage.jsx";
+import CourseDetailPage from "@/features/user/course/pages/CourseDetailPage.jsx";
 export default function AppRoutes() {
   return (
     <BrowserRouter>
@@ -43,6 +44,10 @@ export default function AppRoutes() {
                       <CoursePage/>
                     </ProtectedRoute>
             }/>
+            <Route
+                path="/courses/:courseId" element={<CourseDetailPage/>}
+
+            />
             <Route path="/account" element={<AccountLayout/>}>
                 <Route index element={<Navigate to="profile" replace />} />
 

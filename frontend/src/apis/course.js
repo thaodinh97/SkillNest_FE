@@ -6,6 +6,11 @@ export const courseApi = {
         return res
     },
 
+    getCourseById: async (courseId) => {
+        const res = await axiosClient.get(`/course/${courseId}`)
+        return res
+    },
+
     createCourse: async (data) => {
         const res = await axiosClient.post("/course/", data)
         return res

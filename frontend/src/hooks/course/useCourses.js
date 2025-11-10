@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { courseApi } from "../apis/course"
+import { courseApi } from "../../apis/course.js"
 
 export const useCourses = () => {
     const [courses, setCourses] = useState([])

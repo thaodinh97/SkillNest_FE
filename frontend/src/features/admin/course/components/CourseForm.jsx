@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { useCourseForm } from "../../../../hooks/useCourseForm";
+import { useCourseForm } from "../../../../hooks/course/useCourseForm.js";
 
 export default function CourseForm({formData, handleChange, handleSubmit, course}) {
     const {instructors, fetchInstructors} = useCourseForm()

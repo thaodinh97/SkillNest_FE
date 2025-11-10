@@ -22,7 +22,7 @@ export const userApi = {
     },
 
     updateUser: async (id, data) => {
-        const res = await axiosClient.put(`/user/${id}`, data)
+        const res = await axiosClient.patch(`/user/${id}`, data)
         return res
     },
     deleteUserById: async (id) => {
