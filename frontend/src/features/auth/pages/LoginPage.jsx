@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import authApi from "../../../apis/auth"
 import { getRoleFromToken } from "../../../utils/auth"
+import {toast} from "react-toastify";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("")
@@ -30,7 +31,7 @@ export default function LoginPage() {
                     window.location.href = "/courses"
                 }
             } else {
-                alert("Sai email hoặc mật khẩu!");
+                toast.error("Sai email hoặc mật khẩu!");
             }
         } catch (error) {
             setError(`Error occurs ${error}`)

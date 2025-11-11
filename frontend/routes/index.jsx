@@ -9,6 +9,8 @@ import CoursePage from "@/features/user/course/pages/CourePage.jsx";
 import AccountLayout from "@/features/user/account/pages/AccountLayout.jsx";
 import ProfilePage from "@/features/user/account/pages/ProfilePage.jsx";
 import CourseDetailPage from "@/features/user/course/pages/CourseDetailPage.jsx";
+import MainLayout from "@/layout/MainLayout.jsx";
+import HomePage from "@/pages/HomePage.jsx";
 export default function AppRoutes() {
   return (
     <BrowserRouter>
@@ -38,20 +40,23 @@ export default function AppRoutes() {
                   }/>
 
             {/*Student */}
-            <Route path="/courses"
-                  element={
-                    <ProtectedRoute allowedRole="ROLE_user">
-                      <CoursePage/>
-                    </ProtectedRoute>
-            }/>
-            <Route
-                path="/courses/:courseId" element={<CourseDetailPage/>}
+            <Route element={<MainLayout/>}>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/courses"
+                       element={
+                           <ProtectedRoute allowedRole="ROLE_user">
+                               <CoursePage/>
+                           </ProtectedRoute>
+                       }/>
+                <Route
+                    path="/courses/:courseId" element={<CourseDetailPage/>}
 
-            />
-            <Route path="/account" element={<AccountLayout/>}>
-                <Route index element={<Navigate to="profile" replace />} />
+                />
+                <Route path="/account" element={<AccountLayout/>}>
+                    <Route index element={<Navigate to="profile" replace />} />
 
-                <Route path="profile" element={<ProfilePage />} />
+                    <Route path="profile" element={<ProfilePage />} />
+                </Route>
             </Route>
         </Routes>
     </BrowserRouter>
