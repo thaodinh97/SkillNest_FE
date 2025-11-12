@@ -14,7 +14,7 @@ export const AuthProvider = ({children}) => {
                 setUser(res.result)
             }
             catch (err) {
-                console.error("Lỗi xác thực:", error);
+                console.error("Lỗi xác thực:", err);
                 setUser(null)
             }
             finally {

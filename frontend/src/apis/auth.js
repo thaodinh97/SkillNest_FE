@@ -5,6 +5,11 @@ const authApi = {
         const res = await axiosClient.post("/auth/login", payload)
         return res
     },
-    register: (data) => axiosClient.post("/auth/register", data)
+    register: (data) => axiosClient.post("/auth/register", data),
+    refresh: async (payload) => {
+        const res = await axiosClient.post("/auth/refresh", payload)
+        return res
+    }
 }
+
 export default authApi
