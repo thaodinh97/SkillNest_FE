@@ -1,6 +1,10 @@
 import {useParams} from "react-router-dom";
 import {useCourseDetail} from "@/hooks/course/useCourseDetail.js";
 import {useCourseSections} from "@/hooks/section/useCourseSections.js";
+import {useUser} from "@/features/admin/user/hooks/useUser.js";
+import {useAccountProfile} from "@/features/user/account/hooks/useAccountProfile.js";
+import {useAddToCart} from "@/hooks/cart/useAddToCart.js";
+import {toast} from "react-toastify";
 
 const DocumentIcon = () => (
     <svg className="w-5 h-5 text-gray-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -11,7 +15,18 @@ export default function CourseDetailPage() {
     const {courseId} = useParams()
     const {course, loading: courseLoading, error: courseError} = useCourseDetail(courseId)
     const {sections, loading: sectionsLoading, error: sectionsError} = useCourseSections(courseId)
+    const {data, loading: accountLoading, error: accountError} = useAccountProfile()
+    const {addToCart, loading: addingToCart} = useAddToCart()
 
+    const handleAddToCart = async () => {
+        try {
+            await addToCart(courseId, data.id)
+            toast.success("Đã thêm vào giỏ hàng!")
+        }
+        catch (err) {
+            toast.error("Không thể thêm vào giỏ hàng")
+        }
+    }
     if (courseLoading) {
         return (
             <div className="flex h-screen items-center justify-center">
@@ -88,7 +103,6 @@ export default function CourseDetailPage() {
                                 ))}
                             </div>
                         ) : (
-                            // Hiển thị nếu mảng rỗng
                             <p>Khóa học này chưa có nội dung.</p>
                         )}
                     </div>
@@ -103,8 +117,16 @@ export default function CourseDetailPage() {
                         <button className="w-full rounded-lg bg-indigo-600 px-4 py-3 text-lg font-semibold text-white hover:bg-indigo-700">
                             Mua ngay
                         </button>
-                        <button className="mt-3 w-full rounded-lg border border-gray-700 px-4 py-3 text-lg font-semibold text-gray-800 hover:bg-gray-100">
-                            Thêm vào giỏ hàng
+                        <button
+                            onClick={handleAddToCart}
+                            disabled={addingToCart}
+                            className={`mt-3 w-full rounded-lg border border-gray-700 px-4 py-3 text-lg font-semibold text-gray-800 ${
+                                addingToCart
+                                    ? "bg-gray-100 cursor-not-allowed opacity-70"
+                                    : "hover:bg-gray-100"
+                            }`}
+                        >
+                            {addingToCart ? "Đang thêm..." : "Thêm vào giỏ hàng"}
                         </button>
                     </div>
                 </div>

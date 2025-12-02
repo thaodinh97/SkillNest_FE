@@ -3,7 +3,8 @@ import {NavLink, Outlet} from "react-router-dom";
 const accountNavLinks = [
     { name: 'Thông tin cá nhân', path: 'profile' },
     { name: 'Khóa học của tôi', path: 'my-courses' },
-    { name: 'Lịch sử giao dịch', path: 'order-history' },
+    { name: 'Đơn hàng của tôi', path: 'my-orders'},
+    { name: 'Lịch sử giao dịch', path: 'payment-history' },
     { name: 'Cài đặt (Đổi mật khẩu)', path: 'settings' },
 ]
 

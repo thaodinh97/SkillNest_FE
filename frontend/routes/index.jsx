@@ -11,6 +11,8 @@ import ProfilePage from "@/features/user/account/pages/ProfilePage.jsx";
 import CourseDetailPage from "@/features/user/course/pages/CourseDetailPage.jsx";
 import MainLayout from "@/layout/MainLayout.jsx";
 import HomePage from "@/pages/HomePage.jsx";
+import CartPage from "@/features/user/cart/pages/CartPage.jsx";
+import MyOrdersPage from "@/features/user/account/pages/MyOrdersPage.jsx";
 export default function AppRoutes() {
   return (
     <BrowserRouter>
@@ -42,6 +44,7 @@ export default function AppRoutes() {
             {/*Student */}
             <Route element={<MainLayout/>}>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/cart" element={<CartPage/>}/>
                 <Route path="/courses"
                        element={
                            <ProtectedRoute allowedRole="ROLE_user">
@@ -56,6 +59,7 @@ export default function AppRoutes() {
                     <Route index element={<Navigate to="profile" replace />} />
 
                     <Route path="profile" element={<ProfilePage />} />
+                    <Route path="my-orders" element={<MyOrdersPage/>}/>
                 </Route>
             </Route>
         </Routes>
