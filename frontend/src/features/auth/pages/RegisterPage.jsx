@@ -1,23 +1,38 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import authApi from "@/apis/auth.js";
+import {toast} from "react-toastify";
 
 export default function RegisterPage() {
     const [form, setForm] = useState({
         fullName: "",
         email: "",
+        phoneNumber: "",
+        dob: "",
         password: "",
         confirmPassword: ""
     })
-
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
     const handleChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
     }
 
     const handleRegister = (e) => {
         e.preventDefault()
-        console.log("Register with:", form);
-        
+        try {
+            const res = authApi.register(form)
+            if (res.code === 1000)
+            {
+                window.location.href = "/login"
+            }
+            toast.success("Register successfully!")
+        }
+        catch (error) {
+            setError(`Error occurs ${error}`)
+            toast.error(`Error occurs ${error}`)
+        }
     }
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -26,7 +41,7 @@ export default function RegisterPage() {
                 <form onSubmit={handleRegister} className="w-full flex flex-col gap-4">
                     <Input
                         label="Full name"
-                        name="full name"
+                        name="fullName"
                         value={form.fullName}
                         onChange={handleChange}
                         placeholder="Enter your full name"
@@ -37,6 +52,19 @@ export default function RegisterPage() {
                         value={form.email}
                         onChange={handleChange}
                         placeholder="Enter your email"
+                    />
+                    <Input
+                        label="Phone number"
+                        name="phoneNumber"
+                        value={form.phoneNumber}
+                        onChange={handleChange}
+                        placeholder="Enter your phone number"
+                    />
+                    <Input
+                        type="date"
+                        name="dob"
+                        value={form.dob}
+                        onChange={handleChange}
                     />
                     <Input
                         label="Mật khẩu"
