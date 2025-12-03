@@ -5,6 +5,7 @@ import {useUser} from "@/features/admin/user/hooks/useUser.js";
 import {useAccountProfile} from "@/features/user/account/hooks/useAccountProfile.js";
 import {useAddToCart} from "@/hooks/cart/useAddToCart.js";
 import {toast} from "react-toastify";
+import {useEnrollCourse} from "@/hooks/enrollment/useEnrollCourse.js";
 
 const DocumentIcon = () => (
     <svg className="w-5 h-5 text-gray-500 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -15,9 +16,20 @@ export default function CourseDetailPage() {
     const {courseId} = useParams()
     const {course, loading: courseLoading, error: courseError} = useCourseDetail(courseId)
     const {sections, loading: sectionsLoading, error: sectionsError} = useCourseSections(courseId)
+    const {enrollCourse, loading: enrollLoading, error: enrollError} = useEnrollCourse()
     const {data, loading: accountLoading, error: accountError} = useAccountProfile()
     const {addToCart, loading: addingToCart} = useAddToCart()
+    const isFree = course?.price === 0;
+    const handleEnrollFree = async () => {
+        try {
+            await enrollCourse(courseId)
 
+        }
+        catch (err) {
+
+            toast.error(`Lỗi đăng kí: ${err}`)
+        }
+    }
     const handleAddToCart = async () => {
         try {
             await addToCart(courseId, data.id)
@@ -111,23 +123,40 @@ export default function CourseDetailPage() {
                 {/* Thẻ Mua hàng (Sticky) */}
                 <div className="md:w-1/3 mt-8 md:mt-0">
                     <div className="sticky top-24 bg-white p-6 rounded-lg shadow-lg">
-                        <p className="text-3xl font-bold text-indigo-600 mb-4">
-                            {course.price.toLocaleString()} đ
+                        <p className={`text-3xl font-bold mb-4 ${isFree ? 'text-green-600' : 'text-indigo-600'}`}>
+                            {isFree ? "Miễn phí" : `${course.price.toLocaleString()} đ`}
                         </p>
-                        <button className="w-full rounded-lg bg-indigo-600 px-4 py-3 text-lg font-semibold text-white hover:bg-indigo-700">
-                            Mua ngay
-                        </button>
-                        <button
-                            onClick={handleAddToCart}
-                            disabled={addingToCart}
-                            className={`mt-3 w-full rounded-lg border border-gray-700 px-4 py-3 text-lg font-semibold text-gray-800 ${
-                                addingToCart
-                                    ? "bg-gray-100 cursor-not-allowed opacity-70"
-                                    : "hover:bg-gray-100"
-                            }`}
-                        >
-                            {addingToCart ? "Đang thêm..." : "Thêm vào giỏ hàng"}
-                        </button>
+
+                        {isFree ? (
+                            <button
+                                onClick={handleEnrollFree}
+                                className="w-full rounded-lg bg-green-600 px-4 py-3 text-lg font-semibold text-white hover:bg-green-700 transition"
+                            >
+                                Đăng ký học ngay
+                            </button>
+                        ) : (
+                            // Giao diện cho khóa học Có Phí
+                            <>
+                                <button className="w-full rounded-lg bg-indigo-600 px-4 py-3 text-lg font-semibold text-white hover:bg-indigo-700 transition">
+                                    Mua ngay
+                                </button>
+                                <button
+                                    onClick={handleAddToCart}
+                                    disabled={addingToCart}
+                                    className={`mt-3 w-full rounded-lg border border-gray-700 px-4 py-3 text-lg font-semibold text-gray-800 transition ${
+                                        addingToCart
+                                            ? "bg-gray-100 cursor-not-allowed opacity-70"
+                                            : "hover:bg-gray-100"
+                                    }`}
+                                >
+                                    {addingToCart ? "Đang thêm..." : "Thêm vào giỏ hàng"}
+                                </button>
+                            </>
+                        )}
+
+                        <p className="mt-4 text-center text-xs text-gray-500">
+                            {isFree ? "Truy cập không giới hạn trọn đời" : "Đảm bảo hoàn tiền trong 30 ngày"}
+                        </p>
                     </div>
                 </div>
             </div>

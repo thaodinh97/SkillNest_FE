@@ -13,6 +13,7 @@ import MainLayout from "@/layout/MainLayout.jsx";
 import HomePage from "@/pages/HomePage.jsx";
 import CartPage from "@/features/user/cart/pages/CartPage.jsx";
 import MyOrdersPage from "@/features/user/account/pages/MyOrdersPage.jsx";
+import MyCoursePage from "@/features/user/account/pages/MyCoursePage.jsx";
 export default function AppRoutes() {
   return (
     <BrowserRouter>
@@ -60,6 +61,7 @@ export default function AppRoutes() {
 
                     <Route path="profile" element={<ProfilePage />} />
                     <Route path="my-orders" element={<MyOrdersPage/>}/>
+                    <Route path="my-courses" element={<MyCoursePage/>}/>
                 </Route>
             </Route>
         </Routes>
