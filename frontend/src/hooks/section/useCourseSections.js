@@ -18,6 +18,7 @@ export const useCourseSections = (courseId) => {
 
             try {
                 const response = await sectionApi.getSectionsByCourseId(courseId)
+
                 if (response.result && response.code === 1000)
                 {
                     setSections(response.result || [])

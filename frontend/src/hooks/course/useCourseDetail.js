@@ -19,9 +19,12 @@ export const useCourseDetail = (courseId) => {
             setError(null)
             try {
                 const response = await courseApi.getCourseById(courseId)
+                console.log("call fetch courses")
                 if (response.result && response.code === 1000)
                 {
+
                     setCourse(response.result)
+                    console.log(response.result)
                 }
                 else {
                     throw new Error(response.message || 'Không thể tải dữ liệu khóa học');

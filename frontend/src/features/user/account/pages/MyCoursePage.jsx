@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
 import enrollmentApi from "@/apis/enrollment.js";
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
+import {Button} from "@/components/ui/button.js";
 
 const MyCoursePage = () => {
     const [courses, setCourses] = useState([])
     const [filter, setFilter] = useState("all")
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchEnrolledCouses = async () => {
@@ -92,7 +95,10 @@ const MyCoursePage = () => {
                                 )}
 
                                 {/* Button */}
-                                <button
+                                <Button
+                                    onClick={() => navigate(
+                                        `/learning/${course.course.id}/lesson/${course.course.sections[0].lessons[0].id}`
+                                    )}
                                     className="w-full mt-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
                                 >
                                     {course.progressPercentage === 100
@@ -100,7 +106,7 @@ const MyCoursePage = () => {
                                         : course.progressPercentage > 0 && course.progressPercentage < 100
                                             ? "Tiếp tục học"
                                             : "Bắt đầu học ngay"}
-                                </button>
+                                </Button>
                             </div>
                         </div>
                     ))}
