@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import VideoUploadWidget from './VideoUploadWidget';
 import { lessonApi } from '@/apis/lesson';
+import { courseApi } from '@/apis/course';
 
 const AddLessonModal = ({ isOpen, onClose, onSave, courseId, sectionId }) => {
     // Step 1: Form dữ liệu bài học (không có video)
@@ -79,7 +80,6 @@ const AddLessonModal = ({ isOpen, onClose, onSave, courseId, sectionId }) => {
         }
     };
 
-    // Step 2: Update lesson với video và hoàn thành
     const handleSubmitVideo = async (e) => {
         e.preventDefault();
 
@@ -88,8 +88,7 @@ const AddLessonModal = ({ isOpen, onClose, onSave, courseId, sectionId }) => {
             // Update lesson với video information
             await lessonApi.updateLesson(lessonData.id, {
                 videoUrl: lessonData.videoUrl,
-                videoPublicId: lessonData.videoPublicId,
-                duration: lessonData.duration
+                videoPublicId: lessonData.videoPublicId
             });
 
             // Gọi onSave callback để component cha biết

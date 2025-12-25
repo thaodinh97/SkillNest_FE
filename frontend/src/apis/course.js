@@ -30,7 +30,7 @@ export const courseApi = {
     },
 
     updateCourse: async (id, data) => {
-        const res = await axiosClient.put(`/course/${id}`, data)
+        const res = await axiosClient.patch(`/course/${id}`, data)
         return res
     }
 }

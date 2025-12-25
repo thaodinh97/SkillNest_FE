@@ -12,7 +12,7 @@ export const lessonApi = {
         return res
     },
     updateLesson: async (lessonId, payload) => {
-        const res = await axiosClient.put(`/lesson/${lessonId}`, payload)
+        const res = await axiosClient.patch(`/lesson/${lessonId}`, payload)
         return res
     },
     deleteLesson: async (lessonId) => {
