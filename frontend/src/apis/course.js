@@ -1,8 +1,16 @@
 import axiosClient from "../../services/axiosClient"
 
 export const courseApi = {
-    getAll: async () => {
-        const res = await axiosClient.get("/course/")
+    getCourses: async (instructorId = null) => {
+        const config = {
+            params: {}
+        };
+
+        if (instructorId) {
+            config.params.instructorId = instructorId;
+        }
+        const res = await axiosClient.get("/course", config)
+
         return res
     },
 

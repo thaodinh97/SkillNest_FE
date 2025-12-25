@@ -1,58 +1,60 @@
-import { useEffect, useState } from "react"
+import {useCallback, useEffect, useState} from "react"
 import { courseApi } from "../../apis/course.js"
 
-export const useCourses = () => {
+export const useCourses = (instructorId = null) => {
     const [courses, setCourses] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
-
-    const fetchCourses = async () => {
+    const fetchCourses = useCallback(async (overrideId) => {
         try {
-            setLoading(true)
-            const res = await courseApi.getAll()
-            setCourses(res.result)
-            setError(null)
+            setLoading(true);
+            const res = await courseApi.getCourses(overrideId);
+            console.log(res);
+            
+            setCourses(res.result);
+            setError(null);
         } catch (err) {
-            setError(err.response?.data?.message || 'Lỗi khi tải danh sách khóa học')
+            setError(err.response?.data?.message || 'Lỗi khi tải danh sách khóa học');
+        } finally {
+            setLoading(false);
         }
-        finally {
-            setLoading(false)
-        }
-    }
+    }, []);
 
     const deleteCourse = async (id) => {
         try {
-            const res = await courseApi.deleteCourseById(id)
-            setError(null)
-            return res
+            setLoading(true);
+            await courseApi.deleteCourseById(id);
+
+            setCourses(prev => prev.filter(course => course.id !== id));
+
+            setError(null);
+            return true;
         } catch (err) {
-            setError(err.response?.data?.message || 'Lỗi khi xóa danh sách khóa học')
+            setError(err.response?.data?.message || 'Lỗi khi xóa khóa học');
+            return false;
+        } finally {
+            setLoading(false);
         }
-        finally {
-            setLoading(false)
-        }
-    }
+    };
 
     const updateCourse = async (id, data) => {
         try {
-            const res = await courseApi.updateCourse(id, data)
-            setError(null)
-            return res
+            setLoading(true);
+            const res = await courseApi.updateCourse(id, data);
+            setCourses(prev => prev.map(c => c.id === id ? res.result : c));
+
+            setError(null);
+            return res;
         } catch (err) {
-            setError(err.response?.data?.message || 'Lỗi khi update danh sách khóa học')
+            setError(err.response?.data?.message || 'Lỗi khi cập nhật khóa học');
+        } finally {
+            setLoading(false);
         }
-        finally {
-            setLoading(false)
-        }
-    }
+    };
 
     useEffect(() => {
-        console.log("Courses state updated:", courses);
-    }, [courses]);
-
-    useEffect(() => {
-        fetchCourses()
-    }, [])
+        fetchCourses(instructorId);
+    }, [instructorId, fetchCourses]);
 
     return {
         courses,
@@ -61,5 +63,5 @@ export const useCourses = () => {
         refetch: fetchCourses,
         deleteCourse,
         updateCourse
-    }
+    };
 }

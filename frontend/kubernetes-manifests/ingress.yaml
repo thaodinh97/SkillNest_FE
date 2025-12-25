@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: skill-nest-frontend-ingress
+  namespace: skill-nest
+spec:
+  ingressClassName: nginx-skillnest
+  rules:
+    - host: skillnestedu.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: skill-nest-frontend-service
+              port:
+                number: 80

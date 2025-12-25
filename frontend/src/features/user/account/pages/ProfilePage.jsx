@@ -5,7 +5,7 @@ import {useUpdateProfile} from "@/features/user/account/hooks/useUpdateProfile.j
 const ProfilePage = () => {
     const { data: profileData, loading, error } = useAccountProfile();
     const [formData, setFormData] = useState({
-        avtUrl: null,
+        avatarUrl: null,
         fullName: '',
         email: '',
         dob: '',

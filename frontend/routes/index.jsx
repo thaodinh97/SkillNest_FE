@@ -15,6 +15,11 @@ import CartPage from "@/features/user/cart/pages/CartPage.jsx";
 import MyOrdersPage from "@/features/user/account/pages/MyOrdersPage.jsx";
 import MyCoursePage from "@/features/user/account/pages/MyCoursePage.jsx";
 import LearningPage from "../src/features/user/account/pages/LearningPage";
+import InstructorProfilePage from "@/features/instructor/account/page/InstructorProfilePage.jsx";
+import InstructorLayout from "@/features/instructor/account/layout/InstructorLayout.jsx";
+import InstructorDashboardPage from "@/features/instructor/account/page/InstructorDashboardPage.jsx";
+import InstructorCoursePage from "@/features/instructor/course/pages/InstructorCoursePage.jsx";
+import EditCoursePage from "@/features/instructor/course-editor/pages/EditCoursePage.jsx";
 export default function AppRoutes() {
   return (
     <BrowserRouter>
@@ -42,6 +47,29 @@ export default function AppRoutes() {
                       <AdminUserPage/>
                     </ProtectedRoute>
                   }/>
+
+            {/*Instructor */}
+            <Route path="/instructor" element={
+                <ProtectedRoute allowedRole="ROLE_instructor">
+                    <InstructorLayout />
+                </ProtectedRoute>
+            }>
+                {/* Mặc định vào /instructor sẽ chuyển hướng sang Dashboard */}
+                <Route index element={<Navigate to="dashboard" replace />} />
+
+                {/* Trang thống kê: /instructor/dashboard */}
+                <Route path="dashboard" element={<InstructorDashboardPage />} />
+
+                {/* Trang danh sách khóa học: /instructor/courses */}
+                <Route path="courses" element={<InstructorCoursePage />} />
+
+                {/* Trang chỉnh sửa/tạo khóa học (Curriculum): /instructor/courses/123/manage */}
+                {/* Dùng param :courseId để biết đang sửa khóa nào */}
+                <Route path="courses/:courseId/manage" element={<EditCoursePage />} />
+
+                {/* Trang hồ sơ giảng viên: /instructor/profile */}
+                <Route path="profile" element={<InstructorProfilePage />} />
+            </Route>
 
             {/*Student */}
             <Route element={<MainLayout/>}>
