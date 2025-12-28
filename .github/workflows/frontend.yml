@@ -9,6 +9,9 @@ jobs:
   quality-check:
     name: Check code quality
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,16 +24,13 @@ jobs:
       
       - name: Install depencies
         run: npm ci 
-        working-directory: ./frontend
-
+       
       - name: Run Linter
         run: npm run lint
-        working-directory: ./frontend
-
+       
       - name: Run Build
         run: npm run build
-        working-directory: ./frontend
-
+       
   docker-deploy:
     name: Build and push Docker image
     runs-on: ubuntu-latest
@@ -49,15 +49,20 @@ jobs:
         with: 
           username: ${{secrets.DOCKER_USERNAME}}
           password: ${{secrets.DOCKER_PASSWORD}}
+
+      - name: Generate sha
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       
       - name: Build and push to Docker
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./frontend
+          file: ./frontend/Dockerfile
           push: true
           tags: | 
             thaodinh426/skillnest-fe:latest
-            thaodinh426/skillnest-fe:${{github.sha}}
+            thaodinh426/skillnest-fe:${{ steps.vars.outputs.sha_short }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-        working-directory: ./frontend
+       
