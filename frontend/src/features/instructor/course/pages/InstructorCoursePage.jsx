@@ -15,13 +15,11 @@ const InstructorCoursePage = () => {
     } = useCourses(user?.id);
 
 
-    const handleCreateCourse = async (title) => {
+    const handleCreateCourse = async (courseId) => {
         try {
-
-            const newCourseId = 999;
-
-            // Sau khi tạo xong, chuyển hướng ngay sang trang Edit
-            navigate(`/instructor/courses/${newCourseId}/manage`);
+            // Course đã được tạo và thumbnail đã được upload
+            // Chuyển hướng ngay sang trang Edit
+            navigate(`/instructor/courses/${courseId}/manage`);
         } catch (error) {
             alert("Không thể tạo khóa học mới");
         }
