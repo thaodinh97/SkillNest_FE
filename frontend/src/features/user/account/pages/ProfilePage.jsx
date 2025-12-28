@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useAccountProfile} from "@/features/user/account/hooks/useAccountProfile.js";
 import {useUpdateProfile} from "@/features/user/account/hooks/useUpdateProfile.js";
+import { toast } from "react-toastify";
 
 const ProfilePage = () => {
     const { data: profileData, loading, error } = useAccountProfile();
@@ -44,6 +45,12 @@ const ProfilePage = () => {
         e.preventDefault()
 
         const response = await updateUser(userId, formData)
+        if (response) {
+            toast.success("Cập nhật thành công!")
+        }
+        else {
+            toast.error("Cập nhật thất bại!")
+        }
     }
     if (loading) {
         return <div>Đang tải thông tin hồ sơ...</div>;

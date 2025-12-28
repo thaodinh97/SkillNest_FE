@@ -21,8 +21,8 @@ export default function AdminCoursePage() {
     const [editingCourse, setEditingCourse] = useState(null)
     const [notification, setNotification] = useState({ show: false, message: '', type: '' });
     
-    const { courses, loading, error, refetch, deleteCourse } = useCourses();
-    const {formData, loading: formLoading, error: formError, handleChange, handleSubmit, setFormData} = useCourseForm()
+    const { courses, loading, refetch, deleteCourse } = useCourses();
+    const {formData, handleChange, handleSubmit, setFormData} = useCourseForm()
 
     const showNotification = (message, type = 'success') => {
         setNotification({ show: true, message, type });

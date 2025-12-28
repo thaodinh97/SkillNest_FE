@@ -13,8 +13,6 @@ export default function RegisterPage() {
         password: "",
         confirmPassword: ""
     })
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
     const handleChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
     }
@@ -30,7 +28,6 @@ export default function RegisterPage() {
             toast.success("Register successfully!")
         }
         catch (error) {
-            setError(`Error occurs ${error}`)
             toast.error(`Error occurs ${error}`)
         }
     }

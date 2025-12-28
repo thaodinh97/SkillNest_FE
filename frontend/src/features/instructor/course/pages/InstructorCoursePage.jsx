@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Plus, Search, MoreVertical, Pencil, Trash2, Eye } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import CreateCourseModal from '../components/CreateCourseModal';
 import {useCourses} from "@/hooks/course/useCourses.js";
 import {useUserInfo} from "@/hooks/user/useUserInfo.js";
+import { toast } from 'react-toastify';
 
 const InstructorCoursePage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,11 +18,9 @@ const InstructorCoursePage = () => {
 
     const handleCreateCourse = async (courseId) => {
         try {
-            // Course đã được tạo và thumbnail đã được upload
-            // Chuyển hướng ngay sang trang Edit
             navigate(`/instructor/courses/${courseId}/manage`);
         } catch (error) {
-            alert("Không thể tạo khóa học mới");
+            toast.error('Đã có lỗi xảy ra khi tạo khóa học. Vui lòng thử lại.' + error.message);
         }
     };
 

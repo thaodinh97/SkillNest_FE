@@ -1,6 +1,4 @@
 import axios from "axios";
-import authApi from "@/apis/auth.js";
-import {toast} from "react-toastify";
 
 const axiosClient = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,

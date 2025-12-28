@@ -1,37 +1,6 @@
 import {useMemo, useState} from "react";
 import {useOrder} from "@/features/user/account/hooks/useOrder.js";
 
-const mockOrders = [
-    {
-        id: 'DH78901',
-        date: '2023-10-25T14:30:00Z',
-        status: 'completed',
-        items: [
-            { id: 1, name: 'Khóa học React Nâng Cao', price: 599000, imageUrl: 'https://www.skillfinder.com.au/media/wysiwyg/udemylogo.png' },
-            { id: 2, name: 'Khóa học Thiết kế UI/UX', price: 499000, imageUrl: 'https://www.skillfinder.com.au/media/wysiwyg/udemylogo.png' }
-        ],
-        total: 1098000
-    },
-    {
-        id: 'DH78902',
-        date: '2023-10-28T09:15:00Z',
-        status: 'processing',
-        items: [
-            { id: 3, name: 'Khóa học Lập trình Node.js', price: 799000, imageUrl: 'https://www.skillfinder.com.au/media/wysiwyg/udemylogo.png' }
-        ],
-        total: 799000
-    },
-    {
-        id: 'DH78903',
-        date: '2023-10-22T18:00:00Z',
-        status: 'cancelled',
-        items: [
-            { id: 4, name: 'Khóa học Python cho Người mới', price: 399000, imageUrl: 'https://www.skillfinder.com.au/media/wysiwyg/udemylogo.png' }
-        ],
-        total: 399000
-    }
-]
-
 
 const formatCurrency = (amount) => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);

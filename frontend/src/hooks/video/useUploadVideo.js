@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const useUploadVideo = () => {
     const uploadVideo = async (file) => {
-        const {timestamp, signature, apiKey, cloudName} = await cloudinaryApi.getSignature()
+        const {timestamp, signature, apiKey} = await cloudinaryApi.getSignature()
         const formData = new FormData()
         formData.append("file", file);
         formData.append("timestamp", timestamp);

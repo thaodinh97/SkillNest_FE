@@ -18,7 +18,7 @@ export default function Dashboard() {
     const {users, fetchUsersByRole} = useUser()
     useEffect(() => {
         fetchUsersByRole('user')
-    }, [])
+    }, [fetchUsersByRole])
     return (
         <div className="flex min-h-screen bg-gray-100">
             <aside className="w-64 bg-indigo-600 text-white p-6 space-y-6">

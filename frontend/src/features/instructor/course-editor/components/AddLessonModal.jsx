@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import VideoUploadWidget from './VideoUploadWidget';
 import { lessonApi } from '@/apis/lesson';
-import { courseApi } from '@/apis/course';
 
 const AddLessonModal = ({ isOpen, onClose, onSave, courseId, sectionId }) => {
     // Step 1: Form dữ liệu bài học (không có video)

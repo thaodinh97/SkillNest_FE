@@ -1,7 +1,7 @@
-import {Link, NavLink, useNavigate} from "react-router-dom";
-import {useAuth} from "@/features/auth/context/AuthContext.jsx";
+import {Link, NavLink} from "react-router-dom";
+import {useAuth} from "@/features/auth/hooks/useAuth.js";
 import {FaShoppingCart} from "react-icons/fa";
-import {useCart} from "@/features/user/cart/context/CartContext.jsx";
+import {useCart} from "@/features/user/cart/hooks/useCart.js";
 
 const NavItem = ({to, children}) => {
     return (
@@ -21,8 +21,7 @@ const NavItem = ({to, children}) => {
 }
 
 export default function Header() {
-    const {user, setUser} = useAuth()
-    const navigate = useNavigate()
+    const {user} = useAuth()
     const {itemCount} = useCart()
     return (
         <nav className="bg-gray-800 shadow-md">

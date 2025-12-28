@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import { Camera, User, Mail, Phone, Calendar } from 'lucide-react';
-import {useAccountProfile} from "@/features/user/account/hooks/useAccountProfile.js";
-import {useUserInfo} from "@/hooks/user/useUserInfo.js";
+
 
 const InstructorBioForm = ({initData, onSave, isLoading}) => {
     const [formData, setFormData] = useState({

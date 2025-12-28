@@ -1,9 +1,9 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import {useAuth} from "@/features/auth/context/AuthContext.jsx";
+import {useEffect, useState} from "react";
+import {useAuth} from "@/features/auth/hooks/useAuth.js";
 import cartApi from "@/apis/cart.js";
 import {toast} from "react-toastify";
+import {CartContext} from "./cart.context.js";
 
-const CartContext = createContext(null)
 export const CartProvider = ({children}) => {
     const {user} = useAuth()
     const [cart, setCart] = useState(null)
@@ -53,8 +53,4 @@ export const CartProvider = ({children}) => {
             {children}
         </CartContext.Provider>
     )
-}
-
-export const useCart = () => {
-    return useContext(CartContext)
 }

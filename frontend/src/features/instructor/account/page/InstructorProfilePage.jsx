@@ -3,7 +3,6 @@ import {useEffect, useState} from 'react';
 import {useUserInfo} from "@/hooks/user/useUserInfo.js";
 const InstructorProfilePage = () => {
     const [profileData, setProfileData] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const {user, loading: userLoading, error} = useUserInfo()
 

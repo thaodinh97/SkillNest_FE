@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { userApi } from "../../../../apis/user"
 
 export const useUser = () => {
@@ -77,6 +77,7 @@ export const useUser = () => {
         users,
         loading,
         error,
+        fetchUsers,
         fetchUsersByRole,
         editUser,
         deleteUser,

@@ -1,6 +1,5 @@
 import {useState} from "react";
 import {userApi} from "@/apis/user.js";
-import {toast} from "react-toastify";
 
 export const useUpdateProfile = () => {
     const [isUpdating, setIsUpdating] = useState(false)
@@ -20,7 +19,7 @@ export const useUpdateProfile = () => {
 
             const res = await userApi.updateUser(userId, payload)
             if(res.result && res.code === 1000) {
-                toast.success("Cập nhật thành công!")
+                
                 setUpdatedData(res.result)
                 return true
             }
@@ -30,7 +29,6 @@ export const useUpdateProfile = () => {
         }
         catch (err)
         {
-            toast.error(`Lỗi: ${err.message}`);
             setError(err.message)
             return false
         }

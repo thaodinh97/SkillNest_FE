@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 export default function AdminUserPage() {
-    const {users, loading, error, fetchUsersByRole, editUser, deleteUser, addUser} = useUser()
+    const {users, loading, fetchUsersByRole, editUser, deleteUser, addUser} = useUser()
     const [selectedRole, setSelectedRole] = useState("user")
     const allRoles = ["instructor", "user", "admin"]
 
@@ -31,7 +31,7 @@ export default function AdminUserPage() {
 
     useEffect(() => {
         fetchUsersByRole(selectedRole)
-    }, [selectedRole])
+    }, [selectedRole, fetchUsersByRole])
 
     const handleAdd = () => {
         setEdittingUser(null)

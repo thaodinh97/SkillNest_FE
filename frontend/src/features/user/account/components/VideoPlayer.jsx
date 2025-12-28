@@ -1,5 +1,5 @@
 
-const VideoPlayer = ({ url }) => {
+const VideoPlayer = () => {
     return (
         <div className="w-full">
 

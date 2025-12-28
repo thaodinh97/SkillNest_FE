@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { courseApi } from "../../apis/course.js"
 import { userApi } from "../../apis/user.js"
 
@@ -27,7 +27,7 @@ export const useCourseForm = (initData = null) => {
                 : await courseApi.createCourse(formData)
 
             setLoading(false)
-            return {success: true}
+            return {success: true, data: res}
         } catch (err) {
             const errorMsg = err.response?.data?.message || 'Lỗi khi lưu khóa học';
             setError(errorMsg);

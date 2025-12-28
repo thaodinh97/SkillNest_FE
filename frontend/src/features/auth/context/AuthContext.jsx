@@ -1,8 +1,7 @@
-import {createContext, useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {userApi} from "@/apis/user.js";
-import {toast} from "react-toastify";
+import {AuthContext} from "./auth.context.js";
 
-const AuthContext = createContext(null)
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true);
@@ -34,7 +33,3 @@ export const AuthProvider = ({children}) => {
         </AuthContext.Provider>
     )
 }
-
-export const useAuth = () => {
-    return useContext(AuthContext);
-};

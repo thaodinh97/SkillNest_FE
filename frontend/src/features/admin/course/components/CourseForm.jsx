@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -19,7 +19,7 @@ export default function CourseForm({formData, handleChange, handleSubmit, course
 
     useEffect(() => {
         fetchInstructors();
-    }, []);
+    }, [fetchInstructors]);
     
     return (
         <form className="space-y-4" onSubmit={(e) => handleSubmit(e, course?.id)}>

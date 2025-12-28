@@ -83,7 +83,6 @@ const CourseCurriculum = ({ course, onUpdate }) => {
 
 // Component con hiển thị 1 Section
 const SectionItem = ({ section, index, onUpdate, onAddLesson }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
 
     const handleAddLesson = () => {
         onAddLesson();
@@ -162,7 +161,7 @@ const SectionItem = ({ section, index, onUpdate, onAddLesson }) => {
             {/* Danh sách Lessons trong Section */}
             <div className="p-2 space-y-2 bg-white">
                 {section.lessons && section.lessons.length > 0 ? (
-                    section.lessons.map((lesson, idx) => (
+                    section.lessons.map((lesson) => (
                         <div key={lesson.id} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded border border-transparent hover:border-gray-200 group transition">
                             <div className="flex items-center gap-3">
                                 <GripVertical size={16} className="text-gray-300 cursor-move" />

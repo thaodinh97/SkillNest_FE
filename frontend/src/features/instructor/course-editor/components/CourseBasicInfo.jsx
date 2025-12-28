@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Upload } from 'lucide-react';
+import { toast } from 'react-toastify';
 // import instructorApi from '@/services/instructorApi';
 
 const CourseBasicInfo = ({ course, onUpdate }) => {
@@ -27,9 +28,9 @@ const CourseBasicInfo = ({ course, onUpdate }) => {
 
             await new Promise(r => setTimeout(r, 800));
             onUpdate(); // Refresh lại data ở component cha
-            alert('Đã lưu thông tin!');
+            toast.success('Đã lưu thông tin!');
         } catch (error) {
-            alert('Lỗi khi lưu');
+            toast.error(`Lỗi ${error}`)
         } finally {
             setIsSaving(false);
         }

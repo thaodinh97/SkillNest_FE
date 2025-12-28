@@ -1,7 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useCourseDetail} from "@/hooks/course/useCourseDetail.js";
 import {useCourseSections} from "@/hooks/section/useCourseSections.js";
-import {useUser} from "@/features/admin/user/hooks/useUser.js";
 import {useAccountProfile} from "@/features/user/account/hooks/useAccountProfile.js";
 import {useAddToCart} from "@/hooks/cart/useAddToCart.js";
 import {toast} from "react-toastify";
@@ -16,8 +15,8 @@ export default function CourseDetailPage() {
     const {courseId} = useParams()
     const {course, loading: courseLoading, error: courseError} = useCourseDetail(courseId)
     const {sections, loading: sectionsLoading, error: sectionsError} = useCourseSections(courseId)
-    const {enrollCourse, loading: enrollLoading, error: enrollError} = useEnrollCourse()
-    const {data, loading: accountLoading, error: accountError} = useAccountProfile()
+    const {enrollCourse} = useEnrollCourse()
+    const {data} = useAccountProfile()
     const {addToCart, loading: addingToCart} = useAddToCart()
     const isFree = course?.price === 0;
     const handleEnrollFree = async () => {
@@ -36,7 +35,7 @@ export default function CourseDetailPage() {
             toast.success("Đã thêm vào giỏ hàng!")
         }
         catch (err) {
-            toast.error("Không thể thêm vào giỏ hàng")
+            toast.error("Không thể thêm vào giỏ hàng" + err.message)
         }
     }
     if (courseLoading) {
