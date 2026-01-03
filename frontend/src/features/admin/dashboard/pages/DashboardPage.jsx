@@ -1,18 +1,10 @@
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useCourses } from "../../../../hooks/course/useCourses.js";
 import { useUser } from "../../user/hooks/useUser";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../auth/hooks/useAuth.js";
 
-
-const data = [
-  { name: "Tháng 1", revenue: 4000 },
-  { name: "Tháng 2", revenue: 3000 },
-  { name: "Tháng 3", revenue: 5000 },
-  { name: "Tháng 4", revenue: 7000 },
-]
 
 export default function Dashboard() {
     const {courses} = useCourses()
@@ -29,7 +21,6 @@ export default function Dashboard() {
                     <Link to="/admin/dashboard" className="block hover:text-yellow-300">📊 Dashboard</Link>
                     <Link to="/admin/courses" className="block hover:text-yellow-300">📚 Quản lý khóa học</Link>
                     <Link to="/admin/users" className="block hover:text-yellow-300">👨‍🎓 Người dùng</Link>
-                    <Link to="/admin/orders" className="block hover:text-yellow-300">🛒 Đơn hàng</Link>
                 </nav>
             </aside>
 
@@ -50,28 +41,8 @@ export default function Dashboard() {
                         <h3 className="text-gray-500">Học viên</h3>
                         <p className="text-2xl font-bold">{users.length}</p>
                     </div>
-                    <div className="bg-white p-4 rounded shadow text-center">
-                        <h3 className="text-gray-500">Doanh thu</h3>
-                        <p className="text-2xl font-bold">500M VNĐ</p>
-                    </div>
-                    <div className="bg-white p-4 rounded shadow text-center">
-                        <h3 className="text-gray-500">Đơn hàng</h3>
-                        <p className="text-2xl font-bold">875</p>
-                    </div>
                 </div>
 
-                <div className="bg-white p-6 rounded shadow mb-6">
-                    <h3 className="text-lg font-semibold mb-4">Doanh thu theo từng tháng</h3>
-                    <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={data}>
-                            <XAxis dataKey="name"/>
-                            <YAxis/>
-                            <Tooltip/>
-                            <Bar dataKey="revenue" fill="#4F46E5"/>
-                        </BarChart>
-                    </ResponsiveContainer>
-                    
-                </div>
                 <div className="bg-white p-6 rounded shadow">
                     <h3 className="text-lg font-semibold mb-4">📚 Danh sách khóa học</h3>
                     <table className="w-full border-collapse">

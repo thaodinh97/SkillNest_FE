@@ -31,7 +31,6 @@ export default function AdminUserPage() {
 
     useEffect(() => {
         fetchUsersByRole(selectedRole)
-        console.log(loading);
         
     }, [selectedRole])
 
@@ -56,7 +55,6 @@ export default function AdminUserPage() {
                     ? [typeof user.roles[0] === "string" ? user.roles[0] : user.roles[0].name]
                     : [typeof user.roles === "string" ? user.roles : user.roles.name]
         })
-        console.log(user.roles[0]);
         
         setOpenForm(true)
     }
@@ -76,7 +74,6 @@ export default function AdminUserPage() {
         }
         if (edittingUser) {
             await editUser(edittingUser.id, dataSend)
-            console.log(edittingUser.id, dataSend);
             
         } else {
             await addUser(dataSend)
