@@ -4,6 +4,7 @@ import { useCourses } from "../../../../hooks/course/useCourses.js";
 import { useUser } from "../../user/hooks/useUser";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../auth/hooks/useAuth.js";
 
 
 const data = [
@@ -16,6 +17,7 @@ const data = [
 export default function Dashboard() {
     const {courses} = useCourses()
     const {users, fetchUsersByRole} = useUser()
+    const {logout} = useAuth()
     useEffect(() => {
         fetchUsersByRole('user')
     }, [fetchUsersByRole])
@@ -34,7 +36,7 @@ export default function Dashboard() {
             <main className="flex-1 p-6">
                 <header className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold">Dashboard</h2>
-                    <button className="bg-red-500 px-4 py-2 rounded text-white hover:bg-red-600">
+                    <button onClick={() => logout()} className="bg-red-500 px-4 py-2 rounded text-white hover:bg-red-600">
                         Sign out
                     </button>
                 </header>

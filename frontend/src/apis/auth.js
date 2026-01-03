@@ -9,6 +9,15 @@ const authApi = {
     refresh: async (payload) => {
         const res = await axiosClient.post("/auth/refresh", payload)
         return res
+    },
+    logout: async (token = null) => {
+        
+        const res = await axiosClient.post("/auth/logout", {
+            token: token
+        })
+        console.log(res);
+        
+        return res
     }
 }
 

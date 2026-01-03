@@ -31,7 +31,9 @@ export default function AdminUserPage() {
 
     useEffect(() => {
         fetchUsersByRole(selectedRole)
-    }, [selectedRole, fetchUsersByRole])
+        console.log(loading);
+        
+    }, [selectedRole])
 
     const handleAdd = () => {
         setEdittingUser(null)
