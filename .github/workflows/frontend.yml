@@ -34,7 +34,10 @@ jobs:
         run: npm run lint
 
       - name: Run Build
+        env:
+          VITE_API_BASE_URL: "http://skillnest-alb-1806394704.us-east-1.elb.amazonaws.com"
         run: npm run build
+
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
