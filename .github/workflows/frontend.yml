@@ -35,7 +35,7 @@ jobs:
 
       - name: Run Build
         env:
-          VITE_API_BASE_URL: "http://api.skillnestedu.id.vn"
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
         run: npm run build
 
 
